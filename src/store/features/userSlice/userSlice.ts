@@ -12,7 +12,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: userInitialState,
   reducers: {
-    loadUser: (currentState, action: PayloadAction<User>) => ({
+    loadUser: (currentState, action: PayloadAction<User>): UserState => ({
       ...action.payload,
       isLogged: true,
     }),
