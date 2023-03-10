@@ -1,5 +1,5 @@
 import { type User, type UserState } from "../../../types";
-import { loadUserActionCreator, userReducer } from "./userSlice";
+import { loginUserActionCreator, userReducer } from "./userSlice";
 
 describe("Given an userReducer", () => {
   describe("When it receives loadUser action that has received an id '1', username 'Alexander', token 'yG!UyPP5aQ3HiLGSVUCdg', and an empty state", () => {
@@ -20,9 +20,9 @@ describe("Given an userReducer", () => {
         isLogged: true,
       };
 
-      const loadUserAction = loadUserActionCreator(userPayload);
+      const loginUserAction = loginUserActionCreator(userPayload);
 
-      const newUserState = userReducer(currentUserState, loadUserAction);
+      const newUserState = userReducer(currentUserState, loginUserAction);
 
       expect(newUserState).toStrictEqual(expectedNewUserState);
     });

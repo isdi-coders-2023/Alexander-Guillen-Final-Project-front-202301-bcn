@@ -12,12 +12,13 @@ const userSlice = createSlice({
   name: "user",
   initialState: userInitialState,
   reducers: {
-    loadUser: (currentState, action: PayloadAction<User>): UserState => ({
+    loginUSer: (currentState, action: PayloadAction<User>): UserState => ({
+      ...currentState,
       ...action.payload,
       isLogged: true,
     }),
   },
 });
 
-export const { loadUser: loadUserActionCreator } = userSlice.actions;
+export const { loginUSer: loginUserActionCreator } = userSlice.actions;
 export const userReducer = userSlice.reducer;

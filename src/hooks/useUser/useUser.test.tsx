@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { setupStore } from "../../store/store";
 import useUser from "./useUser";
 import { type LoginTokenPayload, type UserCredentials } from "../../types";
-import { loadUserActionCreator } from "../../store/features/userSlice/userSlice";
+import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 
 jest.mock("jwt-decode", () => jest.fn());
 
@@ -20,7 +20,7 @@ describe("Given an useUser hooks", () => {
         username: "Alexander",
         password: "usuario1",
       };
-      const loadUserAction = loadUserActionCreator({
+      const loadUserAction = loginUserActionCreator({
         ...tokenPayload,
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
       });
