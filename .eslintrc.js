@@ -13,6 +13,13 @@ module.exports = {
           "error",
           "interface",
         ],
+        "@typescript-eslint/naming-convention": "off",
+      },
+    },
+    {
+      files: ["*.test.tsx"],
+      rules: {
+        "@typescript-eslint/no-unsafe-assignment": "off",
       },
     },
   ],
