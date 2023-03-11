@@ -6,7 +6,7 @@ import {
   type UserCredentials,
 } from "../../types";
 import { lingoDeckDispatch } from "../../store/hooks";
-import { loadUserActionCreator } from "../../store/features/userSlice/userSlice";
+import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 
 interface UseUser {
   loginUser: (userCredentials: UserCredentials) => Promise<void>;
@@ -24,7 +24,7 @@ const useUser = (): UseUser => {
 
     const { id, username } = decodeToken<LoginTokenPayload>(token);
 
-    dispatch(loadUserActionCreator({ id, username, token }));
+    dispatch(loginUserActionCreator({ id, username, token }));
   };
 
   return { loginUser };
