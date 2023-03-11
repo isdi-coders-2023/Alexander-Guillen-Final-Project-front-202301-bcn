@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, TextInput } from "react-native";
 import { type UserCredentials } from "../../types";
-import CredentialsFormStyles from "./CredentialsFormStyles";
+import credentialsFormStyles from "./CredentialsFormStyles";
 
 const CredentialsForm = (): JSX.Element => {
   const [userCredentials, setUserCredentials] = useState<UserCredentials>({
@@ -14,12 +14,12 @@ const CredentialsForm = (): JSX.Element => {
   };
 
   return (
-    <View style={CredentialsFormStyles.formContainer}>
-      <View style={CredentialsFormStyles.inputContainer}>
+    <View style={credentialsFormStyles.form}>
+      <View style={credentialsFormStyles.inputContainer}>
         <Text
           nativeID="username"
           style={{
-            ...CredentialsFormStyles.inputLabel,
+            ...credentialsFormStyles.label,
           }}
         >
           Username
@@ -34,14 +34,11 @@ const CredentialsForm = (): JSX.Element => {
           onChangeText={(inputValue) => {
             handleCredentialChange(inputValue, "username");
           }}
-          style={[
-            CredentialsFormStyles.input,
-            CredentialsFormStyles.shadowProps,
-          ]}
+          style={[credentialsFormStyles.input, credentialsFormStyles.shadow]}
         />
       </View>
-      <View style={CredentialsFormStyles.inputContainer}>
-        <Text nativeID="password" style={CredentialsFormStyles.inputLabel}>
+      <View style={credentialsFormStyles.inputContainer}>
+        <Text nativeID="password" style={credentialsFormStyles.label}>
           Password
         </Text>
         <TextInput
@@ -54,10 +51,7 @@ const CredentialsForm = (): JSX.Element => {
           onChangeText={(inputValue) => {
             handleCredentialChange(inputValue, "password");
           }}
-          style={[
-            CredentialsFormStyles.input,
-            CredentialsFormStyles.shadowProps,
-          ]}
+          style={[credentialsFormStyles.input, credentialsFormStyles.shadow]}
         />
       </View>
     </View>

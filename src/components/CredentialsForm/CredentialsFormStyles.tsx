@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-const CredentialsFormStyles = StyleSheet.create({
-  formContainer: {
+const credentialsFormStyles = StyleSheet.create({
+  form: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
@@ -12,7 +12,7 @@ const CredentialsFormStyles = StyleSheet.create({
     width: 239,
     gap: 11,
   },
-  inputLabel: {
+  label: {
     textAlign: "center",
     fontSize: 20,
     fontFamily: "Inter_600SemiBold",
@@ -27,9 +27,9 @@ const CredentialsFormStyles = StyleSheet.create({
     paddingLeft: 19.12,
     fontSize: 20,
   },
-  shadowProps: {
+  shadow: {
     elevation: 10,
   },
 });
 
-export default CredentialsFormStyles;
+export default credentialsFormStyles;
