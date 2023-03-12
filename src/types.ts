@@ -22,3 +22,7 @@ export interface ErrorResponse {
 export interface UserState extends User {
   isLogged: boolean;
 }
+
+export interface UiState {
+  openEyes: boolean;
+}

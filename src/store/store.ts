@@ -3,10 +3,12 @@ import {
   configureStore,
   type PreloadedState,
 } from "@reduxjs/toolkit";
+import { uiReducer } from "./features/uiSlice/uiSlice";
 import { userReducer } from "./features/userSlice/userSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,
+  ui: uiReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
