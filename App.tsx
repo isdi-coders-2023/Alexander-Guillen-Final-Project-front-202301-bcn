@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
-import CredentialsForm from "./src/components/CredentialsForm/CredentialsForm";
 import useFonts from "./src/styles/useFonts";
 import * as SplashScreen from "expo-splash-screen";
+import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
 
 export default function App() {
   const [isAppReady, setAppIsReady] = useState(false);
@@ -31,8 +31,13 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <View style={{ flex: 1 }} onLayout={showLayoutRootView}>
-        <CredentialsForm />
+      <View
+        style={{
+          flex: 1,
+        }}
+        onLayout={showLayoutRootView}
+      >
+        <LoginScreen />
       </View>
     </Provider>
   );
