@@ -1,8 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { type UiState } from "../../../types";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type ModalPayload, type UiState } from "../../../types";
 
 const uiInitialState: UiState = {
   openEyes: true,
+  modal: {
+    title: "",
+    message: "",
+    isError: false,
+    isOpened: false,
+  },
 };
 
 const uiSlice = createSlice({
@@ -17,11 +23,26 @@ const uiSlice = createSlice({
       ...currentState,
       openEyes: false,
     }),
+    openModal: (currentState, action: PayloadAction<ModalPayload>) => ({
+      ...currentState,
+      modal: {
+        ...action.payload,
+        isOpened: true,
+      },
+    }),
+    closeModal: (currentState) => ({
+      ...currentState,
+      modal: {
+        ...uiInitialState.modal,
+      },
+    }),
   },
 });
 
 export const {
   openEyes: openEyesActionCreator,
   closeEyes: closeEyesActionCreator,
+  openModal: openModalActionCreator,
+  closeModal: closeModalActionCreator,
 } = uiSlice.actions;
 export const uiReducer = uiSlice.reducer;
