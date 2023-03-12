@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 const credentialsFormStyles = StyleSheet.create({
   form: {
-    flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -18,7 +17,7 @@ const credentialsFormStyles = StyleSheet.create({
     fontFamily: "Inter_600SemiBold",
   },
   input: {
-    height: 60,
+    height: 46,
     backgroundColor: "white",
     borderColor: "#0080FF",
     borderStyle: "solid",
@@ -26,6 +25,13 @@ const credentialsFormStyles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 19.12,
     fontSize: 20,
+  },
+  alert: {
+    textAlign: "justify",
+    fontFamily: "Inter_700Bold",
+    fontSize: 18,
+    width: 270,
+    color: "#C90C00",
   },
   shadow: {
     elevation: 10,
