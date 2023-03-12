@@ -3,6 +3,7 @@ import { screen } from "@testing-library/react-native";
 import renderWithProviders from "../../testsUtils/renderWithProviders";
 import Eyes from "./Eyes";
 import LottieView from "lottie-react-native";
+import { store } from "../../store/store";
 
 describe("Given the Eyes component", () => {
   const playSpy = jest.spyOn(LottieView.prototype, "play");
@@ -29,7 +30,9 @@ describe("Given the Eyes component", () => {
 
   describe("When it renders with openEyes set to false", () => {
     test("Then it should show two eyes closing", () => {
-      renderWithProviders(<Eyes />, { ui: { openEyes: false } });
+      renderWithProviders(<Eyes />, {
+        ui: { ...store.getState().ui, openEyes: false },
+      });
       const expectedAnimations = [
         [20, 5],
         [20, 5],

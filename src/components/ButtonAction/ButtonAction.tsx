@@ -4,7 +4,7 @@ import buttonActionStyles from "./ButtonActionStyles";
 
 interface ButtonActionProps {
   text: string;
-  action: (event: { preventDefault: () => void }) => void;
+  action: () => void;
 }
 
 const ButtonAction = ({ text, action }: ButtonActionProps): JSX.Element => (

@@ -5,6 +5,7 @@ import renderWithProviders from "../../testsUtils/renderWithProviders";
 import LoginScreen from "./LoginScreen";
 import useUser from "../../hooks/useUser/useUser";
 import { type UserCredentials } from "../../types";
+import { store } from "../../store/store";
 
 const mockedLoginUser = jest.fn();
 
@@ -39,7 +40,9 @@ describe("Given a Login screen", () => {
 
     test("Then it should two eyes closing when openEyes is false", () => {
       playSpy.mockClear();
-      renderWithProviders(<LoginScreen />, { ui: { openEyes: false } });
+      renderWithProviders(<LoginScreen />, {
+        ui: { ...store.getState().ui, openEyes: false },
+      });
       const expectedAnimations = [
         [20, 5],
         [20, 5],
