@@ -1,14 +1,14 @@
 import React from "react";
 import { cleanup, fireEvent, screen } from "@testing-library/react-native";
 import LottieView from "lottie-react-native";
-import renderWithProviders from "../testsUtils/renderWithProviders";
+import renderWithProviders from "../../testsUtils/renderWithProviders";
 import LoginScreen from "./LoginScreen";
-import useUser from "../hooks/useUser/useUser";
-import { type UserCredentials } from "../types";
+import useUser from "../../hooks/useUser/useUser";
+import { type UserCredentials } from "../../types";
 
 const mockedLoginUser = jest.fn();
 
-jest.mock("../hooks/useUser/useUser", () => () => ({
+jest.mock("../../hooks/useUser/useUser", () => () => ({
   loginUser: mockedLoginUser,
 }));
 
