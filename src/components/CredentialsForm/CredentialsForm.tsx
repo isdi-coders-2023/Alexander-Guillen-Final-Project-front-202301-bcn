@@ -1,20 +1,60 @@
 import React, { useState } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View, TextInput, SafeAreaView } from "react-native";
+import {
+  closeEyesActionCreator,
+  openEyesActionCreator,
+} from "../../store/features/uiSlice/uiSlice";
+import { lingoDeckDispatch } from "../../store/hooks";
 import { type UserCredentials } from "../../types";
+import ButtonAction from "../ButtonAction/ButtonAction";
 import credentialsFormStyles from "./CredentialsFormStyles";
+interface CredentialsFormProps {
+  text: string;
+  onSubmit: (userCredentials: UserCredentials) => Promise<void>;
+}
 
-const CredentialsForm = (): JSX.Element => {
+const CredentialsForm = ({
+  text,
+  onSubmit,
+}: CredentialsFormProps): JSX.Element => {
+  const dispatch = lingoDeckDispatch();
+
   const [userCredentials, setUserCredentials] = useState<UserCredentials>({
     username: "",
     password: "",
   });
 
+  const [areValid, setAreValid] = useState(true);
+
+  const handleOnSubmit = async () => {
+    const areValidCredentials = Object.values(userCredentials).every(
+      (credential: string) =>
+        credential.length >= 8 && /^[a-z0-9]+$/i.test(credential)
+    );
+
+    if (areValidCredentials) {
+      await onSubmit(userCredentials);
+      return;
+    }
+
+    setAreValid(false);
+  };
+
   const handleCredentialChange = (inputValue: string, propertyName: string) => {
+    if (propertyName === "password") {
+      if (inputValue.length > 0) {
+        dispatch(closeEyesActionCreator());
+      } else {
+        dispatch(openEyesActionCreator());
+      }
+    }
+
+    setAreValid(true);
     setUserCredentials({ ...userCredentials, [propertyName]: inputValue });
   };
 
   return (
-    <View style={credentialsFormStyles.form}>
+    <SafeAreaView style={credentialsFormStyles.form}>
       <View style={credentialsFormStyles.inputContainer}>
         <Text
           nativeID="username"
@@ -24,7 +64,6 @@ const CredentialsForm = (): JSX.Element => {
         >
           Username
         </Text>
-
         <TextInput
           autoComplete="username"
           placeholder="Enter your username"
@@ -54,7 +93,14 @@ const CredentialsForm = (): JSX.Element => {
           style={[credentialsFormStyles.input, credentialsFormStyles.shadow]}
         />
       </View>
-    </View>
+      {!areValid && (
+        <Text style={credentialsFormStyles.alert} accessibilityRole="alert">
+          username or password should be at least 8 characters long and only
+          contain alphanumeric
+        </Text>
+      )}
+      <ButtonAction text={text} action={handleOnSubmit} />
+    </SafeAreaView>
   );
 };
 
