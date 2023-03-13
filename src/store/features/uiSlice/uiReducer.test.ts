@@ -69,6 +69,7 @@ describe("Given a uiReducer", () => {
         openEyes: uiInitialState.openEyes,
         modal: {
           ...uiInitialState.modal,
+          isError: true,
         },
       };
       const closeModalAction = closeModalActionCreator();
