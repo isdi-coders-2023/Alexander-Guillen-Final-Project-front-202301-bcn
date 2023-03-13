@@ -9,5 +9,5 @@ export const tokenPayload: LoginTokenPayload = {
 };
 export const userCredentials: UserCredentials = {
   username: "Alexander",
-  password: "usuario1",
+  password: "j4lkLZ6PJI7W4d3",
 };
