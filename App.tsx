@@ -5,6 +5,7 @@ import { store } from "./src/store/store";
 import useFonts from "./src/styles/useFonts";
 import * as SplashScreen from "expo-splash-screen";
 import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
+import FeedbackModal from "./src/components/FeedbackModal/FeedbackModal";
 
 export default function App() {
   const [isAppReady, setAppIsReady] = useState(false);
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <FeedbackModal />
       <View
         style={{
           flex: 1,

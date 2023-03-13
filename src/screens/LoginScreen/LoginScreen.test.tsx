@@ -58,7 +58,7 @@ describe("Given a Login screen", () => {
     });
 
     test("Then it should show 'Log in To Continue' title", () => {
-      const title = "Log in To Continue";
+      const title = "Log in to continue";
 
       const titleText = screen.getByText(title);
 

@@ -17,7 +17,7 @@ const LoginScreenStyles = StyleSheet.create({
     height: "80%",
     paddingTop: 80,
     paddingBottom: 30,
-    justifyContent: "space-between",
+    gap: 40,
   },
   logo: {
     width: 50,
