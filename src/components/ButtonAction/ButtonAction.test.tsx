@@ -20,7 +20,7 @@ describe("Given a ButtonAction component", () => {
     });
 
     test("Then it should show Log in text", () => {
-      const text = "Log i";
+      const text = "Log in";
 
       const button = screen.getByRole("button");
 
