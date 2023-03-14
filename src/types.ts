@@ -35,5 +35,6 @@ export interface Modal extends ModalPayload {
 
 export interface UiState {
   openEyes: boolean;
+  isLoading: boolean;
   modal: Modal;
 }

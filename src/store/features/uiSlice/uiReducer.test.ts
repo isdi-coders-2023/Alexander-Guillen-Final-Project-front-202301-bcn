@@ -5,7 +5,9 @@ import {
   closeModalActionCreator,
   openEyesActionCreator,
   openModalActionCreator,
+  setLoadingActionCreator,
   uiReducer,
+  unsetLoadingActionCreator,
 } from "./uiSlice";
 
 describe("Given a uiReducer", () => {
@@ -46,6 +48,7 @@ describe("Given a uiReducer", () => {
           ...modalPayload,
           isOpened: true,
         },
+        isLoading: uiInitialState.isLoading,
       };
 
       const newUiState = uiReducer(uiInitialState, openModalAction);
@@ -64,6 +67,7 @@ describe("Given a uiReducer", () => {
           isError: true,
           isOpened: true,
         },
+        isLoading: uiInitialState.isLoading,
       };
       const expectedNewUiState: UiState = {
         openEyes: uiInitialState.openEyes,
@@ -71,12 +75,38 @@ describe("Given a uiReducer", () => {
           ...uiInitialState.modal,
           isError: true,
         },
+        isLoading: uiInitialState.isLoading,
       };
       const closeModalAction = closeModalActionCreator();
 
       const newUiState = uiReducer(currentUiState, closeModalAction);
 
       expect(newUiState).toStrictEqual(expectedNewUiState);
+    });
+  });
+
+  describe("When it receives an setLoading action", () => {
+    test("Then it should return a new Ui state with isLoading set to true", () => {
+      const setLoadingAction = setLoadingActionCreator();
+
+      const newUiState = uiReducer(uiInitialState, setLoadingAction);
+
+      expect(newUiState).toHaveProperty("isLoading", true);
+    });
+  });
+
+  describe("When it receives an unsetIsLoading action", () => {
+    test("Then it should return a new Ui state with isLoading set to false", () => {
+      const currentUiState: UiState = {
+        ...uiInitialState,
+        isLoading: true,
+      };
+
+      const unsetLoadingAction = unsetLoadingActionCreator();
+
+      const newUiState = uiReducer(currentUiState, unsetLoadingAction);
+
+      expect(newUiState).toHaveProperty("isLoading", false);
     });
   });
 });

@@ -9,6 +9,7 @@ const uiInitialState: UiState = {
     isError: false,
     isOpened: false,
   },
+  isLoading: false,
 };
 
 const uiSlice = createSlice({
@@ -39,6 +40,14 @@ const uiSlice = createSlice({
         isError: currentState.modal.isError,
       },
     }),
+    setLoading: (currentState) => ({
+      ...currentState,
+      isLoading: true,
+    }),
+    unsetLoading: (currentState) => ({
+      ...currentState,
+      isLoading: false,
+    }),
   },
 });
 
@@ -47,5 +56,7 @@ export const {
   closeEyes: closeEyesActionCreator,
   openModal: openModalActionCreator,
   closeModal: closeModalActionCreator,
+  setLoading: setLoadingActionCreator,
+  unsetLoading: unsetLoadingActionCreator,
 } = uiSlice.actions;
 export const uiReducer = uiSlice.reducer;
