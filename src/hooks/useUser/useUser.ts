@@ -1,5 +1,5 @@
 import decodeToken from "jwt-decode";
-import axios, { type AxiosError } from "axios";
+import axios from "axios";
 import {
   type ModalPayload,
   type LoginTokenPayload,
