@@ -33,7 +33,10 @@ const uiSlice = createSlice({
     closeModal: (currentState) => ({
       ...currentState,
       modal: {
-        ...uiInitialState.modal,
+        title: "",
+        message: "",
+        isOpened: false,
+        isError: currentState.modal.isError,
       },
     }),
   },

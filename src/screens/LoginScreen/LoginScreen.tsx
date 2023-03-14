@@ -5,20 +5,20 @@ import useUser from "../../hooks/useUser/useUser";
 import LoginScreenStyles from "./LoginScreenStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import Eyes from "../../components/Eyes/Eyes";
-import Logo from "../../assets/logo.svg";
+import Logo from "../../../assets/logo.svg";
 
 const LoginScreen = (): JSX.Element => {
   const { loginUser } = useUser();
 
   return (
     <LinearGradient
-      colors={["#0080FF", "#010C806D", "#010C80"]}
+      colors={["#0080FF", "#010C80", "#010C806D"]}
       style={LoginScreenStyles.container}
     >
       <Eyes />
       <View style={LoginScreenStyles.formContainer}>
         <Logo style={LoginScreenStyles.logo} accessibilityLabel="Logo" />
-        <Text style={LoginScreenStyles.title}>Log in To Continue</Text>
+        <Text style={LoginScreenStyles.title}>Log in to continue</Text>
         <CredentialsForm onSubmit={loginUser} text="Log in" />
       </View>
     </LinearGradient>
