@@ -3,6 +3,18 @@ import { cleanup, fireEvent, screen } from "@testing-library/react-native";
 import CredentialsForm from "./CredentialsForm";
 import renderWithProviders from "../../testsUtils/renderWithProviders";
 import { type UserCredentials } from "../../types";
+import type * as HookModule from "../../store/hooks";
+import {
+  closeEyesActionCreator,
+  openEyesActionCreator,
+} from "../../store/features/uiSlice/uiSlice";
+
+const mockDispatch = jest.fn();
+
+jest.mock("../../store/hooks", () => ({
+  ...jest.requireActual<typeof HookModule>("../../store/hooks"),
+  lingoDeckDispatch: () => mockDispatch,
+}));
 
 describe("Given a CredentialsForm component", () => {
   const loginUser = jest.fn();
@@ -46,7 +58,7 @@ describe("Given a CredentialsForm component", () => {
       const username = "johndoe";
 
       const usernameEntry = screen.getByLabelText("Username");
-      fireEvent(usernameEntry, "onChangeText", "johndoe");
+      fireEvent.changeText(usernameEntry, "johndoe");
 
       expect(usernameEntry).toHaveProp("value", username);
     });
@@ -57,9 +69,24 @@ describe("Given a CredentialsForm component", () => {
       const password = "u9MwspRSDfr!hT6k";
 
       const passwordEntry = screen.getByLabelText("Password");
-      fireEvent(passwordEntry, "onChangeText", "u9MwspRSDfr!hT6k");
+      fireEvent.changeText(passwordEntry, "u9MwspRSDfr!hT6k");
 
       expect(passwordEntry).toHaveProp("value", password);
+    });
+
+    test("And it should call first dispatch with closeEyes action, and the openEyes action when he delete it", () => {
+      const password = "u9MwspRSDfr!hT6k";
+      const closeEyesAction = closeEyesActionCreator();
+      const openEyesAction = openEyesActionCreator();
+
+      const passwordEntry = screen.getByLabelText("Password");
+      fireEvent.changeText(passwordEntry, password);
+
+      expect(mockDispatch.mock.calls[0][0]).toStrictEqual(closeEyesAction);
+
+      fireEvent.changeText(passwordEntry, "");
+
+      expect(mockDispatch.mock.calls[2][0]).toStrictEqual(openEyesAction);
     });
   });
 
