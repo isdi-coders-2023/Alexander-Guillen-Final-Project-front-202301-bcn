@@ -1,9 +1,18 @@
 import React from "react";
-import { cleanup, screen } from "@testing-library/react-native";
+import { cleanup, fireEvent, screen } from "@testing-library/react-native";
 import { store } from "../../store/store";
 import renderWithProviders from "../../testsUtils/renderWithProviders";
 import { type Modal } from "../../types";
 import FeedbackModal from "./FeedbackModal";
+import type * as HooksModule from "../../store/hooks";
+import { closeModalActionCreator } from "../../store/features/uiSlice/uiSlice";
+
+const mockedUiDispatch = jest.fn();
+
+jest.mock("../../store/hooks", () => ({
+  ...jest.requireActual<typeof HooksModule>("../../store/hooks"),
+  lingoDeckDispatch: () => mockedUiDispatch,
+}));
 
 describe("Given a FeedbackModal component", () => {
   const modalPreloadedState: Modal = {
@@ -40,6 +49,15 @@ describe("Given a FeedbackModal component", () => {
       const button = screen.getByLabelText("delete");
 
       expect(button).toBeOnTheScreen();
+    });
+
+    test("And it should call dispatch with closeModal action when button is clicked", () => {
+      const button = screen.getByLabelText("delete");
+      const closeModalAction = closeModalActionCreator();
+
+      fireEvent.press(button);
+
+      expect(mockedUiDispatch.mock.calls[0][0]).toStrictEqual(closeModalAction);
     });
 
     test("The it should have a red color", () => {
