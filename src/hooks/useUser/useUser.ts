@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import decodeToken from "jwt-decode";
 import axios from "axios";
 import {
@@ -32,6 +33,8 @@ const useUser = (): UseUser => {
       const { token } = response.data as TokenResponse;
 
       const { id, username } = decodeToken<LoginTokenPayload>(token);
+
+      await AsyncStorage.setItem("token", token);
 
       dispatch(loginUserActionCreator({ id, username, token }));
       dispatch(unsetLoadingActionCreator());
