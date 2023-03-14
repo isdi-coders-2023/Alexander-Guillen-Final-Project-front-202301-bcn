@@ -8,7 +8,11 @@ import { testStore } from "../../testsUtils/data";
 import { tokenPayload } from "../../testsUtils/data";
 import { userCredentials } from "../../testsUtils/data";
 import { type ModalPayload, type UserCredentials } from "../../types";
-import { openModalActionCreator } from "../../store/features/uiSlice/uiSlice";
+import {
+  openModalActionCreator,
+  setLoadingActionCreator,
+  unsetLoadingActionCreator,
+} from "../../store/features/uiSlice/uiSlice";
 
 jest.mock("jwt-decode", () => jest.fn());
 
@@ -19,12 +23,22 @@ describe("Given an useUser hooks", () => {
     dispatchSpy.mockClear();
   });
 
+  const setLoadingAction = setLoadingActionCreator();
+  const unsetLoadingAction = unsetLoadingActionCreator();
+
   describe("When its inner function loginUser receives username 'Alexander' and password 'usuario1'", () => {
-    test("Then it should call dispatch with loadUser action", async () => {
+    test("Then it should call dispatch with setLoading, loadUser and unsetLoading actions", async () => {
+      const setLoadingAction = setLoadingActionCreator();
       const loadUserAction = loginUserActionCreator({
         ...tokenPayload,
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
       });
+      const unsetLoadingAction = unsetLoadingActionCreator();
+      const expectedCalledActions = [
+        [setLoadingAction],
+        [loadUserAction],
+        [unsetLoadingAction],
+      ];
 
       (decodeToken as jest.MockedFunction<typeof decodeToken>).mockReturnValue(
         tokenPayload
@@ -41,12 +55,12 @@ describe("Given an useUser hooks", () => {
 
       await loginUser(userCredentials);
 
-      expect(dispatchSpy.mock.calls[0][0]).toStrictEqual(loadUserAction);
+      expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });
   });
 
   describe("When its inner function loginUser receives username 'Alexander' and password 'usuario2'", () => {
-    test("Then it should call dispatch with openModal action with Wrong credentials error", async () => {
+    test("Then it should call dispatch with setLoading, unsetLoading and openModal action with Wrong credentials error", async () => {
       const wrongCredentials: UserCredentials = {
         username: "Alexander",
         password: "usuario2",
@@ -57,6 +71,11 @@ describe("Given an useUser hooks", () => {
         isError: true,
       };
       const openModalAction = openModalActionCreator(wrongCredentialsError);
+      const expectedCalledActions = [
+        [setLoadingAction],
+        [unsetLoadingAction],
+        [openModalAction],
+      ];
 
       const {
         result: {
@@ -70,7 +89,7 @@ describe("Given an useUser hooks", () => {
 
       await loginUser(wrongCredentials);
 
-      expect(dispatchSpy.mock.calls[0][0]).toStrictEqual(openModalAction);
+      expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });
   });
 });
