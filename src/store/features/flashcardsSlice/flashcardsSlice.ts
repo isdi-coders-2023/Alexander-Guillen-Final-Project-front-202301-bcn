@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { Flashcard, type Flashcards } from "../../../types";
+import { type Flashcards } from "../../../types";
 
 const flashcardsInitialState: Flashcards = [];
 
@@ -15,5 +15,4 @@ const flashcardsSlice = createSlice({
 
 export const { loadFlashcards: loadFlashcardsActionCreator } =
   flashcardsSlice.actions;
-
 export const flashcardsReducer = flashcardsSlice.reducer;
