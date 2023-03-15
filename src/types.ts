@@ -38,3 +38,14 @@ export interface UiState {
   isLoading: boolean;
   modal: Modal;
 }
+
+export interface Flashcard {
+  id: string;
+  front: string;
+  back: string;
+  language: string;
+  image: string;
+  imageBackup: string;
+}
+
+export type Flashcards = Flashcard[];
