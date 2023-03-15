@@ -4,20 +4,20 @@ import { renderHook } from "@testing-library/react-native";
 import decodeToken from "jwt-decode";
 import { Provider } from "react-redux";
 import useToken from "./useToken";
-import { testStore, token, tokenPayload } from "../../testsUtils/data";
+import { testStore, mockToken, tokenPayload } from "../../testsUtils/data";
 import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 import { type User } from "../../types";
 
 jest.mock("jwt-decode", () => jest.fn());
 
-AsyncStorage.getItem = jest.fn().mockReturnValue(token);
+AsyncStorage.getItem = jest.fn().mockReturnValue(mockToken);
 
 describe("Given a useToken hook", () => {
   describe("When getToken is called", () => {
     test("Then it should call dispatch with loginUser action", async () => {
       const user: User = {
         ...tokenPayload,
-        token,
+        token: mockToken,
       };
       const loginUserAction = loginUserActionCreator(user);
       const dispatchSpy = jest.spyOn(testStore, "dispatch");

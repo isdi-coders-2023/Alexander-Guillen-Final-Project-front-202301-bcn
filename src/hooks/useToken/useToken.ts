@@ -5,7 +5,11 @@ import { type LoginTokenPayload } from "../../types";
 import { lingoDeckDispatch } from "../../store/hooks";
 import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 
-const useToken = () => {
+interface UseToken {
+  getToken: () => Promise<void>;
+}
+
+const useToken = (): UseToken => {
   const dispatch = lingoDeckDispatch();
 
   const getToken = useCallback(async () => {

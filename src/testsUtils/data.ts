@@ -5,7 +5,7 @@ import {
   type UserCredentials,
 } from "../types";
 
-export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+export const mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 export const testStore = setupStore();
 export const tokenPayload: LoginTokenPayload = {
   username: "Alexander",
