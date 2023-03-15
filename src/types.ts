@@ -48,4 +48,8 @@ export interface Flashcard {
   imageBackup: string;
 }
 
+export interface FlashcardsResponse {
+  flashcards: Flashcards;
+}
+
 export type Flashcards = Flashcard[];
