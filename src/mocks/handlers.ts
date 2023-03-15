@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { token } from "../testsUtils/data";
+import { flashcards, mockToken } from "../testsUtils/data";
 import { type UserCredentials } from "../types";
 
 const handlers = [
@@ -12,12 +12,24 @@ const handlers = [
         return res(
           ctx.status(201),
           ctx.json({
-            token,
+            token: mockToken,
           })
         );
       }
 
       return res(ctx.status(400));
+    }
+  ),
+  rest.get(
+    `${process.env.REACT_APP_API_URL!}/flashcards`,
+    async (req, res, ctx) => {
+      const authorizationHeader = req.headers.get("authorization");
+
+      if (authorizationHeader === `Bearer ${mockToken}`) {
+        return res(ctx.status(200), ctx.json({ flashcards }));
+      }
+
+      return res(ctx.status(403));
     }
   ),
 ];
