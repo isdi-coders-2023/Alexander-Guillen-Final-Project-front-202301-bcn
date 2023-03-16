@@ -8,9 +8,9 @@ import server from "./mocks/server";
 jest.mock("@react-native-async-storage/async-storage", () => mockAsyncStorage);
 
 beforeAll(() => {
-  global.setImmediate = jest.useRealTimers as unknown as typeof setImmediate;
   server.listen();
 });
+
 afterEach(() => {
   server.resetHandlers();
 });
