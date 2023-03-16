@@ -4,8 +4,9 @@ import { Provider } from "react-redux";
 import { store } from "./src/store/store";
 import useFonts from "./src/styles/useFonts";
 import * as SplashScreen from "expo-splash-screen";
-import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
 import FeedbackModal from "./src/components/FeedbackModal/FeedbackModal";
+import FlashcardsList from "./src/components/FlashcardsList/FlashcardsList";
+import { flashcards } from "./src/testsUtils/data";
 
 export default function App() {
   const [isAppReady, setAppIsReady] = useState(false);
@@ -36,10 +37,11 @@ export default function App() {
       <View
         style={{
           flex: 1,
+          alignItems: "center",
         }}
         onLayout={showLayoutRootView}
       >
-        <LoginScreen />
+        <FlashcardsList flashcards={flashcards} />
       </View>
     </Provider>
   );
