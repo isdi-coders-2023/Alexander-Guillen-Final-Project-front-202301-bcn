@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, SafeAreaView, StyleSheet } from "react-native";
+import { FlatList, View } from "react-native";
 import { type Flashcards } from "../../types";
 import FlashcardFlip from "../Flashcard/Flashcard";
 
@@ -8,13 +8,15 @@ interface FlashcardsListProps {
 }
 
 const FlashcardsList = ({ flashcards }: FlashcardsListProps): JSX.Element => (
-  <SafeAreaView>
+  <View style={{ flex: 1 }}>
     <FlatList
       data={flashcards}
       renderItem={(renderItem) => <FlashcardFlip flashcard={renderItem.item} />}
-      contentContainerStyle={{ gap: 51 }}
+      contentContainerStyle={{
+        gap: 51,
+      }}
     />
-  </SafeAreaView>
+  </View>
 );
 
 export default FlashcardsList;
