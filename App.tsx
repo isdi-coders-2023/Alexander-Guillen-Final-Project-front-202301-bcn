@@ -7,6 +7,7 @@ import * as SplashScreen from "expo-splash-screen";
 import FeedbackModal from "./src/components/FeedbackModal/FeedbackModal";
 import FlashcardsList from "./src/components/FlashcardsList/FlashcardsList";
 import { flashcards } from "./src/testsUtils/data";
+import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
 
 export default function App() {
   const [isAppReady, setAppIsReady] = useState(false);
@@ -37,11 +38,12 @@ export default function App() {
       <View
         style={{
           flex: 1,
+          justifyContent: "center",
           alignItems: "center",
         }}
         onLayout={showLayoutRootView}
       >
-        <FlashcardsList flashcards={flashcards} />
+        <HomeScreen />
       </View>
     </Provider>
   );
