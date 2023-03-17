@@ -1,15 +1,23 @@
 import axios from "axios";
-import { loadFlashcardsActionCreator } from "../../store/features/flashcardsSlice/flashcardsSlice";
+import {
+  deleteFlashcardActionCreator,
+  loadFlashcardsActionCreator,
+} from "../../store/features/flashcardsSlice/flashcardsSlice";
 import {
   openModalActionCreator,
   setLoadingActionCreator,
   unsetLoadingActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
 import { lingoDeckDispatch, lingoDeckSelector } from "../../store/hooks";
+import {
+  deleteFlashcardModal,
+  deleteFlashcardModalError,
+} from "../../testsUtils/data";
 import { type FlashcardsResponse, type ModalPayload } from "../../types";
 
 interface UseFlashcards {
   loadFlashcards: () => Promise<void>;
+  deleteFlashcard: (flashcardId: string) => Promise<void>;
 }
 
 const useFlashcards = (): UseFlashcards => {
@@ -41,7 +49,21 @@ const useFlashcards = (): UseFlashcards => {
     }
   };
 
-  return { loadFlashcards };
+  const deleteFlashcard = async (flashcardId: string) => {
+    try {
+      await axios.delete(`${apiUrl}/flashcards/${flashcardId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      dispatch(deleteFlashcardActionCreator(flashcardId));
+
+      dispatch(openModalActionCreator(deleteFlashcardModal));
+    } catch (error) {
+      dispatch(openModalActionCreator(deleteFlashcardModalError));
+    }
+  };
+
+  return { loadFlashcards, deleteFlashcard };
 };
 
 export default useFlashcards;
