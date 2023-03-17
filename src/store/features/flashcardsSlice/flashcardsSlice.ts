@@ -10,9 +10,13 @@ const flashcardsSlice = createSlice({
     loadFlashcards: (currentState, action: PayloadAction<Flashcards>) => [
       ...action.payload,
     ],
+    deleteFlashcard: (currentState, action: PayloadAction<string>) =>
+      currentState.filter(({ id }) => id !== action.payload),
   },
 });
 
-export const { loadFlashcards: loadFlashcardsActionCreator } =
-  flashcardsSlice.actions;
+export const {
+  loadFlashcards: loadFlashcardsActionCreator,
+  deleteFlashcard: deleteFlashcardActionCreator,
+} = flashcardsSlice.actions;
 export const flashcardsReducer = flashcardsSlice.reducer;
