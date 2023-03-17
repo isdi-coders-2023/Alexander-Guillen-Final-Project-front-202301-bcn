@@ -48,6 +48,10 @@ export interface Flashcard {
   imageBackup: string;
 }
 
+export interface RequestParams {
+  userId: string;
+}
+
 export interface FlashcardsResponse {
   flashcards: Flashcards;
 }

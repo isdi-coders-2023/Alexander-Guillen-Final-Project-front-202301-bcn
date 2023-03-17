@@ -1,5 +1,6 @@
 import { setupStore } from "../store/store";
 import {
+  type ModalPayload,
   type Flashcards,
   type LoginTokenPayload,
   type UserCredentials,
@@ -50,3 +51,15 @@ export const flashcards: Flashcards = [
     language: "English",
   },
 ];
+
+export const deleteFlashcardModal: ModalPayload = {
+  title: "Successfully deleted!",
+  message: "Successfully deleted",
+  isError: false,
+};
+
+export const deleteFlashcardModalError: ModalPayload = {
+  title: "Unsuccessfully deleted!",
+  message: "Flashcard couldn't be added to your deck",
+  isError: true,
+};

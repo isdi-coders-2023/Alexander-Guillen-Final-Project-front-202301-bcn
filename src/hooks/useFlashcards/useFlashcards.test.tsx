@@ -3,13 +3,21 @@ import { renderHook } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { setupStore, store } from "../../store/store";
 import useFlashcards from "./useFlashcards";
-import { flashcards, mockToken } from "../../testsUtils/data";
+import {
+  deleteFlashcardModal,
+  deleteFlashcardModalError,
+  flashcards,
+  mockToken,
+} from "../../testsUtils/data";
 import {
   openModalActionCreator,
   setLoadingActionCreator,
   unsetLoadingActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
-import { loadFlashcardsActionCreator } from "../../store/features/flashcardsSlice/flashcardsSlice";
+import {
+  deleteFlashcardActionCreator,
+  loadFlashcardsActionCreator,
+} from "../../store/features/flashcardsSlice/flashcardsSlice";
 import { type ModalPayload } from "../../types";
 
 describe("Given an useFlashcards hook", () => {
@@ -82,6 +90,59 @@ describe("Given an useFlashcards hook", () => {
       await loadFlashcards();
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
+    });
+  });
+
+  describe("When deleteFlashcard receives id '641129f79f3cfb43b4418b1e'", () => {
+    test("Then it should call dispatch with deleteFlashcard (with the given id), and openModal (with deleteFlashcardModal) actions", async () => {
+      const mockFlashcards = flashcards;
+      const id = "641129f79f3cfb43b4418b1e";
+      const deleteFlashcardAction = deleteFlashcardActionCreator(id);
+      const openModalAction = openModalActionCreator(deleteFlashcardModal);
+      const expectedCalledActions = [
+        [deleteFlashcardAction],
+        [openModalAction],
+      ];
+      const testStore = setupStore({ flashcards: mockFlashcards });
+      const dispatchSpy = jest.spyOn(testStore, "dispatch");
+
+      const {
+        result: {
+          current: { deleteFlashcard },
+        },
+      } = renderHook(() => useFlashcards(), {
+        wrapper({ children }) {
+          return <Provider store={testStore}>{children}</Provider>;
+        },
+      });
+
+      await deleteFlashcard(id);
+
+      expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
+    });
+  });
+
+  describe("When deleteFlashcard receives id '6414ae3a0fca52453adde10f'", () => {
+    test("Then it should call dispatch with openModal action (which has been called with deleteFlashcardModalError)", async () => {
+      const id = "6414ae3a0fca52453adde10f";
+      const mockFlashcards = flashcards;
+      const testStore = setupStore({ flashcards: mockFlashcards });
+      const dispatchSpy = jest.spyOn(testStore, "dispatch");
+      const openModalAction = openModalActionCreator(deleteFlashcardModalError);
+
+      const {
+        result: {
+          current: { deleteFlashcard },
+        },
+      } = renderHook(() => useFlashcards(), {
+        wrapper({ children }) {
+          return <Provider store={testStore}>{children}</Provider>;
+        },
+      });
+
+      await deleteFlashcard(id);
+
+      expect(dispatchSpy).toHaveBeenCalledWith(openModalAction);
     });
   });
 });
