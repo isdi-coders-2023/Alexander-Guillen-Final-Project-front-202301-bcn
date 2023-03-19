@@ -5,16 +5,6 @@ import HomeScreen from "./HomeScreen";
 import languages from "../../../assets/languages.json";
 import { flashcards } from "../../testsUtils/data";
 
-const mockSetSelectedLanguage = jest.fn();
-
-jest.mock("react", () => ({
-  ...jest.requireActual<typeof React>("react"),
-  useState: (selectedLanguage: string) => [
-    selectedLanguage,
-    mockSetSelectedLanguage,
-  ],
-}));
-
 describe("Given a HomeScreen screen", () => {
   describe("When it renders", () => {
     beforeEach(() => {
@@ -56,16 +46,16 @@ describe("Given a HomeScreen screen", () => {
 
   describe("When user clicks on 'English' option", () => {
     test("Then it should change selected language to 'English'", () => {
-      const expectedSelectedLanguage = "English";
       renderWithProviders(<HomeScreen />, { flashcards });
-
       const languagesDropdown = screen.getByTestId("languages");
+      const expectedLanguage = "English";
 
       fireEvent(languagesDropdown, "onValueChange", "English");
+      const { selectedIndex }: { selectedIndex: number } =
+        languagesDropdown.props;
+      const selectedLanguage = languages[selectedIndex].name;
 
-      expect(mockSetSelectedLanguage).toHaveBeenCalledWith(
-        expectedSelectedLanguage
-      );
+      expect(selectedLanguage).toBe(expectedLanguage);
     });
   });
 });
