@@ -1,6 +1,7 @@
 import React, { type PropsWithChildren } from "react";
-import { type PreloadedState } from "redux";
+import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
+import { type PreloadedState } from "redux";
 import { render } from "@testing-library/react-native";
 import { setupStore, store, type RootState } from "../store/store";
 
@@ -11,7 +12,9 @@ const renderWithProviders = (
   const testStore = preloadedSate ? setupStore(preloadedSate) : store;
 
   const Wrapper = ({ children }: PropsWithChildren): JSX.Element => (
-    <Provider store={testStore}>{children}</Provider>
+    <NavigationContainer>
+      <Provider store={testStore}>{children}</Provider>
+    </NavigationContainer>
   );
 
   return render(ui, { wrapper: Wrapper });

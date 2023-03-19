@@ -1,7 +1,7 @@
 import React from "react";
 import decodeToken from "jwt-decode";
+import type * as NavigationModule from "@react-navigation/native";
 import { renderHook } from "@testing-library/react";
-import { Provider } from "react-redux";
 import useUser from "./useUser";
 import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 import { testStore } from "../../testsUtils/data";
@@ -13,8 +13,18 @@ import {
   setLoadingActionCreator,
   unsetLoadingActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
+import Wrapper from "../../mocks/Wrapper";
+
+const mockNavigate = jest.fn();
 
 jest.mock("jwt-decode", () => jest.fn());
+
+jest.mock("@react-navigation/native", () => ({
+  ...jest.requireActual<typeof NavigationModule>("@react-navigation/native"),
+  useNavigation: () => ({
+    navigate: mockNavigate,
+  }),
+}));
 
 describe("Given an useUser hooks", () => {
   const dispatchSpy = jest.spyOn(testStore, "dispatch");
@@ -27,7 +37,7 @@ describe("Given an useUser hooks", () => {
   const unsetLoadingAction = unsetLoadingActionCreator();
 
   describe("When its inner function loginUser receives username 'Alexander' and password 'usuario1'", () => {
-    test("Then it should call dispatch with setLoading, loadUser and unsetLoading actions", async () => {
+    test("Then it should call dispatch with setLoading, loadUser and unsetLoading actions, and redirect user to Home", async () => {
       const setLoadingAction = setLoadingActionCreator();
       const loadUserAction = loginUserActionCreator({
         ...tokenPayload,
@@ -49,13 +59,14 @@ describe("Given an useUser hooks", () => {
         },
       } = renderHook(() => useUser(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 
       await loginUser(userCredentials);
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
+      expect(mockNavigate).toHaveBeenCalledWith("Home");
     });
   });
 
@@ -83,7 +94,7 @@ describe("Given an useUser hooks", () => {
         },
       } = renderHook(() => useUser(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 

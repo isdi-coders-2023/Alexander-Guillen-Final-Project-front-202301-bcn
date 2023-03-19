@@ -7,6 +7,7 @@ import useToken from "./useToken";
 import { testStore, mockToken, tokenPayload } from "../../testsUtils/data";
 import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 import { type User } from "../../types";
+import Wrapper from "../../mocks/Wrapper";
 
 jest.mock("jwt-decode", () => jest.fn());
 
@@ -53,7 +54,7 @@ describe("Given a useToken hook", () => {
         },
       } = renderHook(() => useToken(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 
