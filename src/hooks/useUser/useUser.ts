@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import decodeToken from "jwt-decode";
 import axios from "axios";
@@ -14,6 +15,7 @@ import {
   setLoadingActionCreator,
   unsetLoadingActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
+import { type HomeScreenNavigation } from "../../navigation/types";
 
 interface UseUser {
   loginUser: (userCredentials: UserCredentials) => Promise<void>;
@@ -21,6 +23,7 @@ interface UseUser {
 
 const useUser = (): UseUser => {
   const dispatch = lingoDeckDispatch();
+  const navigation = useNavigation<HomeScreenNavigation>();
 
   const loginUser = async (userCredentials: UserCredentials) => {
     try {
@@ -38,6 +41,8 @@ const useUser = (): UseUser => {
 
       dispatch(loginUserActionCreator({ id, username, token }));
       dispatch(unsetLoadingActionCreator());
+
+      navigation.navigate("Home");
     } catch (error) {
       dispatch(unsetLoadingActionCreator());
 

@@ -19,6 +19,7 @@ import {
   loadFlashcardsActionCreator,
 } from "../../store/features/flashcardsSlice/flashcardsSlice";
 import { type ModalPayload } from "../../types";
+import Wrapper from "../../mocks/Wrapper";
 
 describe("Given an useFlashcards hook", () => {
   const setLoadingAction = setLoadingActionCreator();
@@ -46,7 +47,7 @@ describe("Given an useFlashcards hook", () => {
         },
       } = renderHook(() => useFlashcards(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 
@@ -83,7 +84,7 @@ describe("Given an useFlashcards hook", () => {
         },
       } = renderHook(() => useFlashcards(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 
@@ -112,7 +113,7 @@ describe("Given an useFlashcards hook", () => {
         },
       } = renderHook(() => useFlashcards(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 
@@ -136,7 +137,7 @@ describe("Given an useFlashcards hook", () => {
         },
       } = renderHook(() => useFlashcards(), {
         wrapper({ children }) {
-          return <Provider store={testStore}>{children}</Provider>;
+          return <Wrapper store={testStore}>{children}</Wrapper>;
         },
       });
 
