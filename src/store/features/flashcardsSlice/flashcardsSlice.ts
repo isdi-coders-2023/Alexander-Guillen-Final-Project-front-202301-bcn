@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type Flashcards } from "../../../types";
+import { type Flashcard, type Flashcards } from "../../../types";
 
 const flashcardsInitialState: Flashcards = [];
 
@@ -12,11 +12,16 @@ const flashcardsSlice = createSlice({
     ],
     deleteFlashcard: (currentState, action: PayloadAction<string>) =>
       currentState.filter(({ id }) => id !== action.payload),
+    createFlashcards: (currentState, action: PayloadAction<Flashcard>) => [
+      ...currentState,
+      action.payload,
+    ],
   },
 });
 
 export const {
   loadFlashcards: loadFlashcardsActionCreator,
   deleteFlashcard: deleteFlashcardActionCreator,
+  createFlashcards: createFlashcardActionCreator,
 } = flashcardsSlice.actions;
 export const flashcardsReducer = flashcardsSlice.reducer;
