@@ -1,29 +1,10 @@
 import React from "react";
-import { type ThunkMiddleware } from "@reduxjs/toolkit";
-import { type ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 import { Provider } from "react-redux";
-import { type AnyAction, type CombinedState } from "redux";
-import { type Flashcards, type UiState, type UserState } from "../types";
 import { NavigationContainer } from "@react-navigation/native";
+import { type store } from "../store/store";
 
 interface WrapperProps {
-  store: ToolkitStore<
-    CombinedState<{
-      user: UserState;
-      ui: UiState;
-      flashcards: Flashcards;
-    }>,
-    AnyAction,
-    [
-      ThunkMiddleware<
-        CombinedState<{
-          user: UserState;
-          ui: UiState;
-          flashcards: Flashcards;
-        }>
-      >
-    ]
-  >;
+  store: typeof store;
   children: JSX.Element | JSX.Element[];
 }
 

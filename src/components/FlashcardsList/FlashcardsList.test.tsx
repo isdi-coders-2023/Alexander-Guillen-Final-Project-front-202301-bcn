@@ -1,7 +1,7 @@
 import React from "react";
-import { render } from "@testing-library/react-native";
 import FlashcardsList from "./FlashcardsList";
 import { flashcards } from "../../testsUtils/data";
+import renderWithProviders from "../../testsUtils/renderWithProviders";
 
 describe("Given a FlashcardsList component", () => {
   describe("When it renders with four flashcards", () => {
@@ -11,7 +11,9 @@ describe("Given a FlashcardsList component", () => {
       const frontText3 = /^Perro$/;
       const frontText4 = /^Ciudad$/;
 
-      const { getByText } = render(<FlashcardsList flashcards={flashcards} />);
+      const { getByText } = renderWithProviders(
+        <FlashcardsList flashcards={flashcards} />
+      );
       const front = getByText(frontText);
       const front2 = getByText(frontText2);
       const front3 = getByText(frontText3);
@@ -29,7 +31,9 @@ describe("Given a FlashcardsList component", () => {
       const backText3 = /^Dog$/;
       const backText4 = /^City$/;
 
-      const { getByText } = render(<FlashcardsList flashcards={flashcards} />);
+      const { getByText } = renderWithProviders(
+        <FlashcardsList flashcards={flashcards} />
+      );
       const back = getByText(backText);
       const back2 = getByText(backText2);
       const back3 = getByText(backText3);

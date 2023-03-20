@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
 import useFonts from "./src/styles/useFonts";
 import * as SplashScreen from "expo-splash-screen";
-import FeedbackModal from "./src/components/FeedbackModal/FeedbackModal";
-import FlashcardsList from "./src/components/FlashcardsList/FlashcardsList";
-import { flashcards } from "./src/testsUtils/data";
-import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
+import Navigator from "./src/navigation/Navigator";
 
 export default function App() {
   const [isAppReady, setAppIsReady] = useState(false);
@@ -34,16 +32,21 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <FeedbackModal />
       <View
         style={{
           flex: 1,
           justifyContent: "center",
-          alignItems: "center",
         }}
         onLayout={showLayoutRootView}
       >
-        <HomeScreen />
+        <NavigationContainer
+          theme={{
+            ...DefaultTheme,
+            colors: { ...DefaultTheme.colors, background: "white" },
+          }}
+        >
+          <Navigator />
+        </NavigationContainer>
       </View>
     </Provider>
   );

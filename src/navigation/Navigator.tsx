@@ -18,7 +18,6 @@ const Navigator = (): JSX.Element => {
         initialRouteName="Login"
         screenOptions={{
           headerShown: false,
-          contentStyle: { alignItems: "center" },
         }}
       >
         <Stack.Screen name="Login" component={LoginScreen} />
