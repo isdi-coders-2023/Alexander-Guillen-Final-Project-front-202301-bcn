@@ -6,7 +6,7 @@ import {
 } from "../../store/features/uiSlice/uiSlice";
 import { lingoDeckDispatch } from "../../store/hooks";
 import { type UserCredentials } from "../../types";
-import ButtonAction from "../ButtonAction/ButtonAction";
+import ButtonForm from "../ButtonForm/ButtonForm";
 import credentialsFormStyles from "./CredentialsFormStyles";
 interface CredentialsFormProps {
   text: string;
@@ -99,7 +99,7 @@ const CredentialsForm = ({
           contain alphanumeric
         </Text>
       )}
-      <ButtonAction text={text} action={handleOnSubmit} />
+      <ButtonForm text={text} action={handleOnSubmit} />
     </SafeAreaView>
   );
 };
