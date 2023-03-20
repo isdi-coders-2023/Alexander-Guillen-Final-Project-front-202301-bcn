@@ -5,14 +5,14 @@ import {
   render,
   screen,
 } from "@testing-library/react-native";
-import ButtonAction from "./ButtonAction";
+import ButtonForm from "./ButtonForm";
 
 describe("Given a ButtonAction component", () => {
   describe("When it receives an action, 'Log in' text and renders", () => {
     const action = jest.fn();
 
     beforeEach(() => {
-      render(<ButtonAction action={action} text="Log in" />);
+      render(<ButtonForm action={action} text="Log in" />);
     });
 
     afterEach(() => {

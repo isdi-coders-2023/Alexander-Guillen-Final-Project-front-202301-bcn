@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const buttonActionStyles = StyleSheet.create({
+const buttonFormStyles = StyleSheet.create({
   button: {
     backgroundColor: "#4353FF",
     paddingVertical: 7,
@@ -17,4 +17,4 @@ const buttonActionStyles = StyleSheet.create({
   },
 });
 
-export default buttonActionStyles;
+export default buttonFormStyles;

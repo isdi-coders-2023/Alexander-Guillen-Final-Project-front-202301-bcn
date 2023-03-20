@@ -1,14 +1,18 @@
 import React from "react";
 import "core-js";
 import "@jest/fake-timers";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-} from "@testing-library/react-native";
+import { cleanup, fireEvent, screen } from "@testing-library/react-native";
 import { type Flashcard } from "../../types";
 import FlashcardFlip from "./Flashcard";
+import renderWithProviders from "../../testsUtils/renderWithProviders";
+
+const mockDeleteFlashcard = jest.fn();
+
+jest.mock("../../hooks/useFlashcards/useFlashcards", () =>
+  jest.fn(() => ({
+    deleteFlashcard: mockDeleteFlashcard,
+  }))
+);
 
 describe("Given a Flashcard component", () => {
   const flashcard: Partial<Flashcard> = {
@@ -18,7 +22,7 @@ describe("Given a Flashcard component", () => {
   };
 
   beforeEach(() => {
-    render(<FlashcardFlip flashcard={flashcard as Flashcard} />);
+    renderWithProviders(<FlashcardFlip flashcard={flashcard as Flashcard} />);
   });
 
   afterEach(() => {
@@ -54,6 +58,25 @@ describe("Given a Flashcard component", () => {
       expect(back).toHaveTextContent(backText);
       expect(front).toHaveStyle({ transform: [{ rotateY: "0deg" }] });
       expect(back).toHaveStyle({ transform: [{ rotateY: "180deg" }] });
+    });
+
+    const buttonName = "delete";
+
+    test("Then it should show two delete buttons ", () => {
+      const buttons = screen.getAllByLabelText(buttonName);
+
+      expect(buttons.length).toBe(2);
+      buttons.forEach((button) => {
+        expect(button).toBeOnTheScreen();
+      });
+    });
+
+    test("Then it should call deleteFlashcard function when one of this buttons is clicked", () => {
+      const buttons = screen.getAllByLabelText(buttonName);
+
+      fireEvent.press(buttons[0]);
+
+      expect(mockDeleteFlashcard).toHaveBeenCalled();
     });
   });
 });

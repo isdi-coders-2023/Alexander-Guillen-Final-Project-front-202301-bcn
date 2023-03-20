@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import axios from "axios";
 import {
   deleteFlashcardActionCreator,
@@ -25,7 +26,7 @@ const useFlashcards = (): UseFlashcards => {
   const dispatch = lingoDeckDispatch();
   const token = lingoDeckSelector(({ user: { token } }) => token);
 
-  const loadFlashcards = async () => {
+  const loadFlashcards = useCallback(async () => {
     try {
       dispatch(setLoadingActionCreator());
       const response = await axios.get(`${apiUrl}/flashcards`, {
@@ -35,6 +36,7 @@ const useFlashcards = (): UseFlashcards => {
       const { flashcards } = response.data as FlashcardsResponse;
 
       dispatch(loadFlashcardsActionCreator(flashcards));
+
       dispatch(unsetLoadingActionCreator());
     } catch (error) {
       dispatch(unsetLoadingActionCreator());
@@ -47,7 +49,7 @@ const useFlashcards = (): UseFlashcards => {
 
       dispatch(openModalActionCreator(flashcardsError));
     }
-  };
+  }, []);
 
   const deleteFlashcard = async (flashcardId: string) => {
     try {
