@@ -23,7 +23,6 @@ export const flashcards: Flashcards = [
     back: "City",
     front: "Ciudad",
     image: "https://tinyurl.com/2oaqyv8u",
-    imageBackup: "https://tinyurl.com/2oaqyv8u",
     language: "English",
   },
   {
@@ -31,7 +30,6 @@ export const flashcards: Flashcards = [
     back: "Water",
     front: "Agua",
     image: "https://tinyurl.com/y6sx8k2q",
-    imageBackup: "https://tinyurl.com/y6sx8k2q",
     language: "English",
   },
   {
@@ -39,7 +37,6 @@ export const flashcards: Flashcards = [
     back: "Phone",
     front: "Teléfono",
     image: "https://tinyurl.com/2p9n4m24",
-    imageBackup: "https://tinyurl.com/2p9n4m24",
     language: "English",
   },
   {
@@ -47,7 +44,6 @@ export const flashcards: Flashcards = [
     back: "Dog",
     front: "Perro",
     image: "https://tinyurl.com/2h8r9xv6",
-    imageBackup: "https://tinyurl.com/2h8r9xv6",
     language: "English",
   },
 ];

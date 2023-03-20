@@ -45,7 +45,6 @@ export interface Flashcard {
   back: string;
   language: string;
   image: string;
-  imageBackup: string;
 }
 
 export interface RequestParams {
