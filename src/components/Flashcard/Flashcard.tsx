@@ -16,7 +16,7 @@ interface FlashcardProps {
 }
 
 const FlashcardFlip = ({
-  flashcard: { imageBackup, front, back, id },
+  flashcard: { image, front, back, id },
 }: FlashcardProps) => {
   const { deleteFlashcard } = useFlashcards();
   const [isFlipped, setIsFlipped] = useState(false);
@@ -67,7 +67,7 @@ const FlashcardFlip = ({
         >
           <DeleteOrCreateAction isDelete={true} action={onDelete} />
           <Image
-            source={{ uri: imageBackup }}
+            source={{ uri: image }}
             style={FlashcardStyles.cardImage}
             accessibilityLabel={front}
           />
@@ -85,7 +85,7 @@ const FlashcardFlip = ({
         >
           <DeleteOrCreateAction isDelete={true} action={onDelete} />
           <Image
-            source={{ uri: imageBackup }}
+            source={{ uri: image }}
             style={FlashcardStyles.cardImage}
             accessibilityLabel={back}
           />

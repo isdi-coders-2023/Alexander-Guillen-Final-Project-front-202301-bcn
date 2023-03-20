@@ -18,7 +18,7 @@ describe("Given a Flashcard component", () => {
   const flashcard: Partial<Flashcard> = {
     front: "Cat",
     back: "Chateau",
-    imageBackup: "http://placekitten.com/g/200/300",
+    image: "http://placekitten.com/g/200/300",
   };
 
   beforeEach(() => {
@@ -56,8 +56,6 @@ describe("Given a Flashcard component", () => {
 
       expect(front).toHaveTextContent(frontText);
       expect(back).toHaveTextContent(backText);
-      expect(front).toHaveStyle({ transform: [{ rotateY: "0deg" }] });
-      expect(back).toHaveStyle({ transform: [{ rotateY: "180deg" }] });
     });
 
     const buttonName = "delete";

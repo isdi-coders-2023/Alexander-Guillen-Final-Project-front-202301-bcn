@@ -1,8 +1,10 @@
 import { flashcards } from "../../../testsUtils/data";
+import { Flashcard } from "../../../types";
 import {
   loadFlashcardsActionCreator,
   flashcardsReducer,
   deleteFlashcardActionCreator,
+  createFlashcardActionCreator,
 } from "./flashcardsSlice";
 
 describe("Given flashcardsReducer", () => {
@@ -27,6 +29,17 @@ describe("Given flashcardsReducer", () => {
       );
 
       expect(newFlashcardsState).toStrictEqual(flashcards.slice(1));
+    });
+  });
+
+  describe("When it is called with createFlashcard action (which has been called with a flashcard)", () => {
+    test("Then it should return new flashcards state with that flashcard", () => {
+      const newFlashcard = flashcards[0];
+      const createFlashcardAction = createFlashcardActionCreator(newFlashcard);
+
+      const newFlashcardsState = flashcardsReducer([], createFlashcardAction);
+
+      expect(newFlashcardsState).toStrictEqual([newFlashcard]);
     });
   });
 });
