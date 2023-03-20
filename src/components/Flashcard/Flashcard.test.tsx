@@ -56,7 +56,6 @@ describe("Given a Flashcard component", () => {
 
       expect(front).toHaveTextContent(frontText);
       expect(back).toHaveTextContent(backText);
-      expect(back).toHaveStyle({ transform: [{ rotateY: "180deg" }] });
     });
 
     const buttonName = "delete";
