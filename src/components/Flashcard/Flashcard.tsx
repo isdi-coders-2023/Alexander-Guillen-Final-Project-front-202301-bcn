@@ -6,7 +6,9 @@ import {
   Animated,
   Image,
 } from "react-native";
+import useFlashcards from "../../hooks/useFlashcards/useFlashcards";
 import { type Flashcard } from "../../types";
+import DeleteOrCreateAction from "../DeleteOrCreateAction/DeleteOrCreateAction";
 import FlashcardStyles from "./FlashcardStyles";
 
 interface FlashcardProps {
@@ -14,10 +16,15 @@ interface FlashcardProps {
 }
 
 const FlashcardFlip = ({
-  flashcard: { imageBackup, front, back },
+  flashcard: { imageBackup, front, back, id },
 }: FlashcardProps) => {
+  const { deleteFlashcard } = useFlashcards();
   const [isFlipped, setIsFlipped] = useState(false);
   const flipValue = useRef(new Animated.Value(0)).current;
+
+  const onDelete = async () => {
+    await deleteFlashcard(id);
+  };
 
   const flipCard = () => {
     setIsFlipped(!isFlipped);
@@ -58,6 +65,7 @@ const FlashcardFlip = ({
           style={[FlashcardStyles.cardFace, frontAnimatedStyle]}
           accessibilityLabel="question"
         >
+          <DeleteOrCreateAction isDelete={true} action={onDelete} />
           <Image
             source={{ uri: imageBackup }}
             style={FlashcardStyles.cardImage}
@@ -75,6 +83,7 @@ const FlashcardFlip = ({
           ]}
           accessibilityLabel="answer"
         >
+          <DeleteOrCreateAction isDelete={true} action={onDelete} />
           <Image
             source={{ uri: imageBackup }}
             style={FlashcardStyles.cardImage}
