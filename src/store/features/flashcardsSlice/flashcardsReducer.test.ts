@@ -1,5 +1,5 @@
 import { flashcards } from "../../../testsUtils/data";
-import { Flashcard } from "../../../types";
+import { FlashcardPayload } from "../../../types";
 import {
   loadFlashcardsActionCreator,
   flashcardsReducer,

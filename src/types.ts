@@ -39,13 +39,19 @@ export interface UiState {
   modal: Modal;
 }
 
-export interface Flashcard {
+export interface FlashcardPayload {
   id: string;
   front: string;
   back: string;
   language: string;
   image: string;
 }
+
+export interface FlashcardResponse {
+  flashcard: FlashcardPayload;
+}
+
+export type Flashcard = Omit<FlashcardPayload, "id">;
 
 export interface RequestParams {
   userId: string;
@@ -55,4 +61,4 @@ export interface FlashcardsResponse {
   flashcards: Flashcards;
 }
 
-export type Flashcards = Flashcard[];
+export type Flashcards = FlashcardPayload[];

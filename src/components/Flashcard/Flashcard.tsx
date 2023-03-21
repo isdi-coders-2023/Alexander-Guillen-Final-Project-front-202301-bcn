@@ -7,12 +7,12 @@ import {
   Image,
 } from "react-native";
 import useFlashcards from "../../hooks/useFlashcards/useFlashcards";
-import { type Flashcard } from "../../types";
+import { type FlashcardPayload } from "../../types";
 import DeleteOrCreateAction from "../DeleteOrCreateAction/DeleteOrCreateAction";
 import FlashcardStyles from "./FlashcardStyles";
 
 interface FlashcardProps {
-  flashcard: Flashcard;
+  flashcard: FlashcardPayload;
 }
 
 const FlashcardFlip = ({
