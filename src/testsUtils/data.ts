@@ -4,6 +4,7 @@ import {
   type Flashcards,
   type LoginTokenPayload,
   type UserCredentials,
+  type Flashcard,
 } from "../types";
 
 export const mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
@@ -48,6 +49,13 @@ export const flashcards: Flashcards = [
   },
 ];
 
+export const mockFlashcard: Flashcard = {
+  back: "City",
+  front: "Ciudad",
+  image: "https://tinyurl.com/2oaqyv8u",
+  language: "English",
+};
+
 export const deleteFlashcardModal: ModalPayload = {
   title: "Successfully deleted!",
   message: "Successfully deleted",
@@ -56,6 +64,18 @@ export const deleteFlashcardModal: ModalPayload = {
 
 export const deleteFlashcardModalError: ModalPayload = {
   title: "Unsuccessfully deleted!",
+  message: "Flashcard couldn't be added to your deck",
+  isError: true,
+};
+
+export const flashcardCreated: ModalPayload = {
+  title: "Successfully created!",
+  message: "Flashcard has been added to your deck",
+  isError: false,
+};
+
+export const flashcardCreatedError: ModalPayload = {
+  title: "Unsuccessfully created!",
   message: "Flashcard couldn't be added to your deck",
   isError: true,
 };
