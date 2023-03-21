@@ -1,6 +1,10 @@
 import { rest } from "msw";
-import { flashcards, mockToken } from "../testsUtils/data";
-import { type RequestParams, type UserCredentials } from "../types";
+import { flashcards, mockFlashcard, mockToken } from "../testsUtils/data";
+import {
+  type Flashcard,
+  type RequestParams,
+  type UserCredentials,
+} from "../types";
 
 const apiUrl = process.env.REACT_APP_API_URL!;
 
@@ -40,6 +44,25 @@ const handlers = [
       return res(ctx.status(500));
     }
   ),
+  rest.post(`${apiUrl}/flashcards`, async (req, res, ctx) => {
+    const flashcard = await req.json<Flashcard>();
+    const hasFilledValues = Object.values(flashcard).every(
+      (value) => value.length > 0
+    );
+
+    const authorizationHeader = req.headers.get("authorization");
+
+    if (authorizationHeader === `Bearer ${mockToken}` && hasFilledValues) {
+      return res(
+        ctx.status(201),
+        ctx.json({
+          flashcard: { ...mockFlashcard, id: "641129f79f3cfb43b4418b1e" },
+        })
+      );
+    }
+
+    return res(ctx.status(500));
+  }),
 ];
 
 export default handlers;
