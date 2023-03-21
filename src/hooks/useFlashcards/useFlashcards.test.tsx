@@ -6,7 +6,10 @@ import useFlashcards from "./useFlashcards";
 import {
   deleteFlashcardModal,
   deleteFlashcardModalError,
+  flashcardCreated,
+  flashcardCreatedError,
   flashcards,
+  mockFlashcard,
   mockToken,
 } from "../../testsUtils/data";
 import {
@@ -15,10 +18,11 @@ import {
   unsetLoadingActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
 import {
+  createFlashcardActionCreator,
   deleteFlashcardActionCreator,
   loadFlashcardsActionCreator,
 } from "../../store/features/flashcardsSlice/flashcardsSlice";
-import { type ModalPayload } from "../../types";
+import { type Flashcard, type ModalPayload } from "../../types";
 import Wrapper from "../../mocks/Wrapper";
 
 describe("Given an useFlashcards hook", () => {
@@ -142,6 +146,71 @@ describe("Given an useFlashcards hook", () => {
       });
 
       await deleteFlashcard(id);
+
+      expect(dispatchSpy).toHaveBeenCalledWith(openModalAction);
+    });
+  });
+
+  describe("When createFlashcard is called with a flashcard", () => {
+    test("Then it should call dispatch with createFlashcard and openModal action (which has been called with flashcardCreated)", async () => {
+      const testStore = setupStore({
+        user: {
+          ...store.getState().user,
+          token: mockToken,
+        },
+      });
+      const dispatchSpy = jest.spyOn(testStore, "dispatch");
+      const flashcard = mockFlashcard;
+      const openModalAction = openModalActionCreator(flashcardCreated);
+      const createFlashcardAction = createFlashcardActionCreator(flashcards[0]);
+      const expectedCalledActions = [
+        [createFlashcardAction],
+        [openModalAction],
+      ];
+
+      const {
+        result: {
+          current: { createFlashcard },
+        },
+      } = renderHook(() => useFlashcards(), {
+        wrapper({ children }) {
+          return <Wrapper store={testStore}>{children}</Wrapper>;
+        },
+      });
+
+      await createFlashcard(flashcard);
+
+      expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
+    });
+  });
+
+  describe("When createFlashcard receives a flashcard with empty values", () => {
+    test("Then it should call dispatch with openModal action with has been called with flashcardCreatedError", async () => {
+      const flashcard: Flashcard = {
+        front: "",
+        back: "",
+        image: "",
+        language: "",
+      };
+      const testStore = setupStore({
+        user: {
+          ...store.getState().user,
+          token: mockToken,
+        },
+      });
+      const dispatchSpy = jest.spyOn(testStore, "dispatch");
+      const openModalAction = openModalActionCreator(flashcardCreatedError);
+
+      const {
+        result: {
+          current: { createFlashcard },
+        },
+      } = renderHook(() => useFlashcards(), {
+        wrapper({ children }) {
+          return <Wrapper store={testStore}>{children}</Wrapper>;
+        },
+      });
+      await createFlashcard(flashcard);
 
       expect(dispatchSpy).toHaveBeenCalledWith(openModalAction);
     });
