@@ -2,7 +2,7 @@ import React from "react";
 import "core-js";
 import "@jest/fake-timers";
 import { cleanup, fireEvent, screen } from "@testing-library/react-native";
-import { type Flashcard } from "../../types";
+import { type FlashcardPayload } from "../../types";
 import FlashcardFlip from "./Flashcard";
 import renderWithProviders from "../../testsUtils/renderWithProviders";
 
@@ -15,14 +15,17 @@ jest.mock("../../hooks/useFlashcards/useFlashcards", () =>
 );
 
 describe("Given a Flashcard component", () => {
-  const flashcard: Partial<Flashcard> = {
+  const flashcard: Partial<FlashcardPayload> = {
+    id: "6418dc80effa5afa98ca5472",
     front: "Cat",
     back: "Chateau",
     image: "http://placekitten.com/g/200/300",
   };
 
   beforeEach(() => {
-    renderWithProviders(<FlashcardFlip flashcard={flashcard as Flashcard} />);
+    renderWithProviders(
+      <FlashcardFlip flashcard={flashcard as FlashcardPayload} />
+    );
   });
 
   afterEach(() => {
