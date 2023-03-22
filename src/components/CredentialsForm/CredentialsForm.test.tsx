@@ -1,13 +1,13 @@
 import React from "react";
 import { cleanup, fireEvent, screen } from "@testing-library/react-native";
 import CredentialsForm from "./CredentialsForm";
-import renderWithProviders from "../../testsUtils/renderWithProviders";
 import { type UserCredentials } from "../../types";
 import type * as HookModule from "../../store/hooks";
 import {
   closeEyesActionCreator,
   openEyesActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
+import { renderWithProviders } from "../../testsUtils/renders";
 
 const mockDispatch = jest.fn();
 

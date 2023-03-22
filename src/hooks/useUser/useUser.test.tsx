@@ -1,7 +1,5 @@
-import React from "react";
 import decodeToken from "jwt-decode";
 import type * as NavigationModule from "@react-navigation/native";
-import { renderHook } from "@testing-library/react";
 import useUser from "./useUser";
 import { loginUserActionCreator } from "../../store/features/userSlice/userSlice";
 import { testStore } from "../../testsUtils/data";
@@ -13,7 +11,7 @@ import {
   setLoadingActionCreator,
   unsetLoadingActionCreator,
 } from "../../store/features/uiSlice/uiSlice";
-import Wrapper from "../../mocks/Wrapper";
+import { renderHookWithStore } from "../../testsUtils/renders";
 
 const mockNavigate = jest.fn();
 
@@ -53,17 +51,12 @@ describe("Given an useUser hooks", () => {
       (decodeToken as jest.MockedFunction<typeof decodeToken>).mockReturnValue(
         tokenPayload
       );
-      const {
-        result: {
-          current: { loginUser },
-        },
-      } = renderHook(() => useUser(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
 
-      await loginUser(userCredentials);
+      await renderHookWithStore(
+        useUser,
+        testStore,
+        "loginUser"
+      )(userCredentials);
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
       expect(mockNavigate).toHaveBeenCalledWith("Home");
@@ -88,17 +81,11 @@ describe("Given an useUser hooks", () => {
         [openModalAction],
       ];
 
-      const {
-        result: {
-          current: { loginUser },
-        },
-      } = renderHook(() => useUser(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-
-      await loginUser(wrongCredentials);
+      await renderHookWithStore(
+        useUser,
+        testStore,
+        "loginUser"
+      )(wrongCredentials);
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });

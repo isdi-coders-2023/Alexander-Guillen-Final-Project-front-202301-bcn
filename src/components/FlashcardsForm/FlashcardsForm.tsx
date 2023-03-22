@@ -84,7 +84,7 @@ const FlashcardsForm = ({ onSubmit, onSubmitText }: FlashcardsFormProps) => {
             }}
             testID="languages"
           >
-            {languages.map(({ name, id }) => (
+            {languages.slice(1).map(({ name, id }) => (
               <Picker.Item
                 label={name}
                 value={name}

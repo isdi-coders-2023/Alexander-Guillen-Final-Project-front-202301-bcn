@@ -1,9 +1,9 @@
 import React from "react";
 import { screen } from "@testing-library/react-native";
-import renderWithProviders from "../../testsUtils/renderWithProviders";
 import Eyes from "./Eyes";
 import LottieView from "lottie-react-native";
 import { store } from "../../store/store";
+import { renderWithProviders } from "../../testsUtils/renders";
 
 describe("Given the Eyes component", () => {
   const playSpy = jest.spyOn(LottieView.prototype, "play");

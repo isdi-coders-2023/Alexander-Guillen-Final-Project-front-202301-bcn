@@ -53,7 +53,7 @@ describe("Given a FlashcardsForm component", () => {
     test("Then it should show a dropdown menu with languages", () => {
       const languagesDropdown = screen.getByTestId("languages");
 
-      languages.forEach(({ name }) => {
+      languages.slice(1).forEach(({ name }) => {
         expect(languagesDropdown).toHaveProp(
           "items",
           expect.arrayContaining([
@@ -70,7 +70,7 @@ describe("Given a FlashcardsForm component", () => {
       fireEvent(languagesDropdown, "onValueChange", "English");
       const { selectedIndex }: { selectedIndex: number } =
         languagesDropdown.props;
-      const selectedLanguage = languages[selectedIndex].name;
+      const selectedLanguage = languages.slice(1)[selectedIndex].name;
 
       expect(selectedLanguage).toBe(expectedLanguage);
     });

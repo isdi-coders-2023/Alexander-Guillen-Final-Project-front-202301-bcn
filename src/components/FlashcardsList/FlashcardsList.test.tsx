@@ -1,7 +1,7 @@
 import React from "react";
 import FlashcardsList from "./FlashcardsList";
 import { flashcards } from "../../testsUtils/data";
-import renderWithProviders from "../../testsUtils/renderWithProviders";
+import { renderWithProviders } from "../../testsUtils/renders";
 
 describe("Given a FlashcardsList component", () => {
   describe("When it renders with four flashcards", () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { screen, cleanup } from "@testing-library/react-native";
-import renderWithProviders from "../../testsUtils/renderWithProviders";
 import Loader from "./Loader";
 import { store } from "../../store/store";
+import { renderWithProviders } from "../../testsUtils/renders";
 
 describe("Given a Loader component", () => {
   describe("When it renders with isLoading set to false", () => {

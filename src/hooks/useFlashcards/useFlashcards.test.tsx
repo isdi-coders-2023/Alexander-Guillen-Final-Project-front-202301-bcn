@@ -1,6 +1,3 @@
-import React from "react";
-import { renderHook } from "@testing-library/react-native";
-import { Provider } from "react-redux";
 import { setupStore, store } from "../../store/store";
 import useFlashcards from "./useFlashcards";
 import {
@@ -23,7 +20,7 @@ import {
   loadFlashcardsActionCreator,
 } from "../../store/features/flashcardsSlice/flashcardsSlice";
 import { type Flashcard, type ModalPayload } from "../../types";
-import Wrapper from "../../mocks/Wrapper";
+import { renderHookWithStore } from "../../testsUtils/renders";
 
 describe("Given an useFlashcards hook", () => {
   const setLoadingAction = setLoadingActionCreator();
@@ -45,17 +42,7 @@ describe("Given an useFlashcards hook", () => {
       ];
       const dispatchSpy = jest.spyOn(testStore, "dispatch");
 
-      const {
-        result: {
-          current: { loadFlashcards },
-        },
-      } = renderHook(() => useFlashcards(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-
-      await loadFlashcards();
+      await renderHookWithStore(useFlashcards, testStore, "loadFlashcards")();
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });
@@ -82,17 +69,7 @@ describe("Given an useFlashcards hook", () => {
         [openModalAction],
       ];
 
-      const {
-        result: {
-          current: { loadFlashcards },
-        },
-      } = renderHook(() => useFlashcards(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-
-      await loadFlashcards();
+      await renderHookWithStore(useFlashcards, testStore, "loadFlashcards")();
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });
@@ -111,17 +88,11 @@ describe("Given an useFlashcards hook", () => {
       const testStore = setupStore({ flashcards: mockFlashcards });
       const dispatchSpy = jest.spyOn(testStore, "dispatch");
 
-      const {
-        result: {
-          current: { deleteFlashcard },
-        },
-      } = renderHook(() => useFlashcards(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-
-      await deleteFlashcard(id);
+      await renderHookWithStore(
+        useFlashcards,
+        testStore,
+        "deleteFlashcard"
+      )(id);
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });
@@ -135,17 +106,11 @@ describe("Given an useFlashcards hook", () => {
       const dispatchSpy = jest.spyOn(testStore, "dispatch");
       const openModalAction = openModalActionCreator(deleteFlashcardModalError);
 
-      const {
-        result: {
-          current: { deleteFlashcard },
-        },
-      } = renderHook(() => useFlashcards(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-
-      await deleteFlashcard(id);
+      await renderHookWithStore(
+        useFlashcards,
+        testStore,
+        "deleteFlashcard"
+      )(id);
 
       expect(dispatchSpy).toHaveBeenCalledWith(openModalAction);
     });
@@ -168,17 +133,11 @@ describe("Given an useFlashcards hook", () => {
         [openModalAction],
       ];
 
-      const {
-        result: {
-          current: { createFlashcard },
-        },
-      } = renderHook(() => useFlashcards(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-
-      await createFlashcard(flashcard);
+      await renderHookWithStore(
+        useFlashcards,
+        testStore,
+        "createFlashcard"
+      )(flashcard);
 
       expect(dispatchSpy.mock.calls).toStrictEqual(expectedCalledActions);
     });
@@ -201,16 +160,11 @@ describe("Given an useFlashcards hook", () => {
       const dispatchSpy = jest.spyOn(testStore, "dispatch");
       const openModalAction = openModalActionCreator(flashcardCreatedError);
 
-      const {
-        result: {
-          current: { createFlashcard },
-        },
-      } = renderHook(() => useFlashcards(), {
-        wrapper({ children }) {
-          return <Wrapper store={testStore}>{children}</Wrapper>;
-        },
-      });
-      await createFlashcard(flashcard);
+      await renderHookWithStore(
+        useFlashcards,
+        testStore,
+        "createFlashcard"
+      )(flashcard);
 
       expect(dispatchSpy).toHaveBeenCalledWith(openModalAction);
     });
