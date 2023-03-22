@@ -4,7 +4,7 @@ import "@jest/fake-timers";
 import { cleanup, fireEvent, screen } from "@testing-library/react-native";
 import { type FlashcardPayload } from "../../types";
 import FlashcardFlip from "./Flashcard";
-import renderWithProviders from "../../testsUtils/renderWithProviders";
+import { renderWithProviders } from "../../testsUtils/renders";
 
 const mockDeleteFlashcard = jest.fn();
 

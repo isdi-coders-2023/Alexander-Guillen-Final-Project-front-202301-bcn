@@ -2,8 +2,8 @@ import React from "react";
 import { screen, cleanup, fireEvent } from "@testing-library/react-native";
 import Navigator from "./Navigator";
 import LottieView from "lottie-react-native";
-import renderWithProviders from "../testsUtils/renderWithProviders";
 import { store } from "../store/store";
+import { renderWithProviders } from "../testsUtils/renders";
 
 describe("Given a Navigator component", () => {
   describe("When it renders", () => {

@@ -2,10 +2,11 @@ import React, { type PropsWithChildren } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { type PreloadedState } from "redux";
-import { render } from "@testing-library/react-native";
+import { render, renderHook } from "@testing-library/react-native";
 import { setupStore, store, type RootState } from "../store/store";
+import Wrapper from "../mocks/Wrapper";
 
-const renderWithProviders = (
+export const renderWithProviders = (
   ui: React.ReactElement,
   preloadedSate?: PreloadedState<RootState>
 ) => {
@@ -20,4 +21,18 @@ const renderWithProviders = (
   return render(ui, { wrapper: Wrapper });
 };
 
-export default renderWithProviders;
+export const renderHookWithStore = <T, K extends keyof T>(
+  customHook: () => T,
+  testStore: typeof store,
+  innerFunction: K
+): T[K] => {
+  const {
+    result: { current },
+  } = renderHook(() => customHook(), {
+    wrapper({ children }) {
+      return <Wrapper store={testStore}>{children}</Wrapper>;
+    },
+  });
+
+  return current[innerFunction];
+};

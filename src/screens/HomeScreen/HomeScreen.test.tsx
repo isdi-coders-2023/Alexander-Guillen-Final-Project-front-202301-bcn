@@ -1,9 +1,9 @@
 import React from "react";
 import { screen, cleanup, fireEvent } from "@testing-library/react-native";
-import renderWithProviders from "../../testsUtils/renderWithProviders";
 import HomeScreen from "./HomeScreen";
 import languages from "../../../assets/languages.json";
 import { flashcards } from "../../testsUtils/data";
+import { renderWithProviders } from "../../testsUtils/renders";
 
 describe("Given a HomeScreen screen", () => {
   describe("When it renders", () => {
