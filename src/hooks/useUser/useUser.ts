@@ -17,7 +17,7 @@ import {
 } from "../../store/features/uiSlice/uiSlice";
 import { type HomeScreenNavigation } from "../../navigation/types";
 
-interface UseUser {
+export interface UseUser {
   loginUser: (userCredentials: UserCredentials) => Promise<void>;
 }
 
